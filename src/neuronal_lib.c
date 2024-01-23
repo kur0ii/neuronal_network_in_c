@@ -31,7 +31,7 @@ void initialization_2(LayerList **layers, int nb_entry) {
 
     *layers = malloc(sizeof(LayerList));
 
-    // Allouer la couche cachée 1
+    // Allocate first layer
     Layer *layer1 = malloc(sizeof(Layer));
     layer1->nb_neurons = 2; // n1
     layer1->W = allocate_matrix(layer1->nb_neurons, nb_entry);
@@ -39,7 +39,7 @@ void initialization_2(LayerList **layers, int nb_entry) {
     randn_matrix(&layer1->W);
     randn_matrix(&layer1->b);
 
-    // Allouer la couche cachée 2
+    // Allocate second layer
     Layer *layer2 = malloc(sizeof(Layer));
     layer2->nb_neurons = 1 ; // Taille des entrées
     layer2->W = allocate_matrix(layer2->nb_neurons, layer1->nb_neurons);
@@ -47,7 +47,7 @@ void initialization_2(LayerList **layers, int nb_entry) {
     randn_matrix(&layer2->W);
     randn_matrix(&layer2->b);
 
-    // Ajouter les couches à la liste
+    // Add layers in the LayerList
     layer1->next = layer2;
     (*layers)->head = layer1;
 }
@@ -267,11 +267,10 @@ void artificial_neuron(Matrix X, Matrix y, const double learning_rate, const int
         update(&W, &b, dW, db, learning_rate);
     }
 
-    // Now you can use the trained parameters W and b for prediction
+    // Using trained parameters
     y_pred = predict(X, W, b);
     print_matrix(y_pred,"y_pred");
 
-    // Free memory
     free_matrix(&W);
     free_matrix(&b);
 }
